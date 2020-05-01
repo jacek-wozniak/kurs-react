@@ -1,4 +1,4 @@
-To run one of project just download project and run
+To run one of project just download repository and run
 ### npm install
 then
 ### npm start
