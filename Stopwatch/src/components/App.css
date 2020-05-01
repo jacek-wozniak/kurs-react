@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+}
+.container > * {
+    margin: 10px;
+    padding: 10px 20px;
+}
+.container > div {
+    margin: 10px 30px;
+    font-family: monospace;
+}
