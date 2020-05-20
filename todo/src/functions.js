@@ -1,10 +1,9 @@
-export function filterTasks(){
-  const arr = [...this.state.tasks]
+export function filterTasks(arr, isValid){
   return arr.reduce(([done, todo], currentValue) => {
-    if(currentValue.doneDate) {
-      return [[...done, currentValue], todo];
-    } else {
-      return [done, [...todo, currentValue]];
-    }
+    return isValid(currentValue) ? [[...done, currentValue], todo] : [done, [...todo, currentValue]];
   }, [[], []])
+}
+
+export function getHeadersObject(desiredHeaders) {
+
 }

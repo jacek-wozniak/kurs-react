@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Form from './Form'
 import ToDoList from './ToDo/ToDoList'
 import DoneList from './Done/DoneList'
+import {filterTasks} from "../functions";
 
 class App extends Component {
   state = {
@@ -23,23 +24,23 @@ class App extends Component {
         priority: true,
       },
       {
-        id: 1,
-        content: 'Znaleźc pracę',
-        createDate: '10.04.2020',
-        dueDate: '14.06.2020',
-        doneDate: false,
-        priority: true,
-      },
-      {
-        id: 1,
-        content: 'Znaleźc pracę',
-        createDate: '10.04.2020',
-        dueDate: '14.06.2020',
-        doneDate: false,
-        priority: true,
-      },
-      {
         id: 2,
+        content: 'Znaleźc pracę',
+        createDate: '10.04.2020',
+        dueDate: '14.06.2020',
+        doneDate: false,
+        priority: true,
+      },
+      {
+        id: 3,
+        content: 'Znaleźc pracę',
+        createDate: '10.04.2020',
+        dueDate: '14.06.2020',
+        doneDate: false,
+        priority: true,
+      },
+      {
+        id: 4,
         content: 'Wyrzucić śmieci',
         createDate: '10.05.2020',
         dueDate: '11.05.2020',
@@ -49,17 +50,26 @@ class App extends Component {
     ]
   }
 
+  handleAddTask = (newTask) => {
+    const tasks = [...this.state.tasks];
+    tasks.push(newTask);
+    this.setState({tasks});
+  }
 
+  handleRemoveTask = (id) => {
+    const tasks = this.state.tasks.filter(task => task.id !== id);
+    this.setState({tasks})
+  }
 
   render() {
-    const [tasksDone, tasksToDo] = this.filterTasks();
+    const [tasksDone, tasksToDo] = filterTasks(this.state.tasks, task => task.doneDate);
 
     return (
       <div className="app">
         <h1 className="app__header">Todoapp</h1>
-        <Form />
-        <ToDoList tasks={tasksToDo}/>
-        <DoneList tasks={tasksDone}/>
+        <Form addTask={this.handleAddTask}/>
+        <ToDoList tasks={tasksToDo} removeTask={this.handleRemoveTask}/>
+        <DoneList tasks={tasksDone} removeTask={this.handleRemoveTask}/>
       </div>
     );
   }

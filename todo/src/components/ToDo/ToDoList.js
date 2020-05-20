@@ -1,23 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ToDoTask from './ToDoTask';
+import {getHeadersObject} from "../../functions";
 
-const ToDoList = (props) => {
-  const tasks = props.tasks.map(task => (
-    <ToDoTask key={task.id} task={task}/>
-  ));
-  const tableHeaders = ['ID', 'Zadanie', 'Data'].map(header => (
-    <th className>{header}</th>
-  ))
+class ToDoList extends Component {
+  state = {
+    headers: [
+      {
+        propertyName: 'id',
+        showName: 'ID',
+      },
+      {
+        propertyName: 'content',
+        showName: 'Zadanie',
+      },
+      {
+        propertyName: 'dueDate',
+        showName: 'Data',
+      },
+      {
+        propertyName: 'actions',
+        showName: 'Akcje'
+      }
+    ]
+  }
 
-  return (
-    <section className="section">
-      <h2 className="section__header">Zadania do zrobienia:</h2>
-      <table className="section__table todo">
-        <tr>{tableHeaders}</tr>
-        {tasks}
-      </table>
-    </section>
-  );
+  render() {
+    const tasks = this.props.tasks.map(task => (
+      <ToDoTask key={task.id} task={task} removeTask={this.props.removeTask}/>
+    ));
+    const tableHeaders = this.state.headers.map(header => (
+      <th
+        key={header.propertyName}
+        className={header.propertyName || false}>{header.showName}</th>
+    ))
+
+    return (
+      <section className="section todo">
+        <h2 className="section__header">Zadania do zrobienia:</h2>
+        <table className="table">
+          <thead>
+            <tr>{tableHeaders}</tr>
+          </thead>
+          <tbody>
+            {tasks}
+          </tbody>
+        </table>
+      </section>
+    );
+  }
 }
 
 export default ToDoList;

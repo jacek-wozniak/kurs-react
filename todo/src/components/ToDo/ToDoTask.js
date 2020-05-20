@@ -8,6 +8,9 @@ const ToDoTask = (props) => {
       <td>{id}</td>
       <td>{content}</td>
       <td>{dueDate}</td>
+      <td>
+        <button onClick={props.removeTask.bind(this, id)}>Usuń</button>
+      </td>
     </tr>
   );
 }

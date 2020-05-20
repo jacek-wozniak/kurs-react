@@ -7,9 +7,9 @@ const DoneList = (props) => {
   ))
   return (
 
-    <section className="section">
+    <section className="section done">
       <h2 className="section__header">Ostatnio zrobione zadania:</h2>
-      <ul className="section__table done">
+      <ul className="table">
         {tasks}
       </ul>
     </section>
