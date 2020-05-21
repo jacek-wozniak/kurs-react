@@ -10,48 +10,51 @@ class App extends Component {
       {
         id: 0,
         content: 'Posprzątać pokój',
-        createDate: '12.05.2020',
-        dueDate: '14.05.2020',
-        doneDate: '13.05.2020',
+        createDate: 1590012300000,
+        dueDate: 1590028400000,
+        doneDate: 1590023300000,
         priority: false,
       },
       {
         id: 1,
         content: 'Znaleźc pracę',
-        createDate: '10.04.2020',
-        dueDate: '14.06.2020',
+        createDate: 1590092400000,
+        dueDate: 1590093400000,
         doneDate: false,
         priority: true,
       },
       {
         id: 2,
         content: 'Znaleźc pracę',
-        createDate: '10.04.2020',
-        dueDate: '14.06.2020',
+        createDate: 1590011400000,
+        dueDate: 1590098600000,
         doneDate: false,
         priority: true,
       },
       {
         id: 3,
         content: 'Znaleźc pracę',
-        createDate: '10.04.2020',
-        dueDate: '14.06.2020',
+        createDate: 1590098300000,
+        dueDate: 1590028400000,
         doneDate: false,
         priority: true,
       },
       {
         id: 4,
         content: 'Wyrzucić śmieci',
-        createDate: '10.05.2020',
-        dueDate: '11.05.2020',
-        doneDate: '11.05.2020',
+        createDate: 1590048400000,
+        dueDate: 1590098400000,
+        doneDate: 1590095400000,
         priority: false,
       }
     ]
   }
 
   handleAddTask = (newTask) => {
-    const tasks = [...this.state.tasks];
+    const tasks = [...this.state.tasks],
+          maxId = Math.max.apply(null, tasks.map(item => item.id));
+    newTask.id = maxId + 1;
+    newTask.createDate = Date.parse();
     tasks.push(newTask);
     this.setState({tasks});
   }
