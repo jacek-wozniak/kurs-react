@@ -43,7 +43,7 @@ class Form extends Component {
     if(isValid) {
       const newTask = {
         content: this.state.content,
-        dueDate: Date.parse(this.state.dueDate),
+        dueDate: Date.parse(this.state.dueDate) || 0,
         priority: this.state.priority,
       }
       this.props.addTask(newTask);

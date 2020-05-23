@@ -3,65 +3,33 @@ import Form from './Form'
 import ToDoList from './ToDo/ToDoList'
 import DoneList from './Done/DoneList'
 import {filterTasks} from "../functions";
+import CookieManagerClass from "../class/CookieManager";
 
 class App extends Component {
   state = {
-    tasks: [
-      {
-        id: 0,
-        content: 'Posprzątać pokój',
-        createDate: 1590012300000,
-        dueDate: 1590028400000,
-        doneDate: 1590023300000,
-        priority: false,
-      },
-      {
-        id: 1,
-        content: 'Znaleźc pracę',
-        createDate: 1590092400000,
-        dueDate: 1590093400000,
-        doneDate: false,
-        priority: true,
-      },
-      {
-        id: 2,
-        content: 'Znaleźc pracę',
-        createDate: 1590011400000,
-        dueDate: 1590098600000,
-        doneDate: false,
-        priority: true,
-      },
-      {
-        id: 3,
-        content: 'Znaleźc pracę',
-        createDate: 1590098300000,
-        dueDate: 1590028400000,
-        doneDate: false,
-        priority: true,
-      },
-      {
-        id: 4,
-        content: 'Wyrzucić śmieci',
-        createDate: 1590048400000,
-        dueDate: 1590098400000,
-        doneDate: 1590095400000,
-        priority: false,
-      }
-    ]
+    tasks: []
+  }
+  taskCookies = new CookieManagerClass('tasks');
+
+  componentDidMount() {
+    this.setState({
+      tasks: this.taskCookies.content
+    })
   }
 
   handleAddTask = (newTask) => {
     const tasks = [...this.state.tasks],
           maxId = Math.max.apply(null, tasks.map(item => item.id));
     newTask.id = maxId + 1;
-    newTask.createDate = Date.parse();
+    newTask.createDate = Date.now();
     tasks.push(newTask);
+    this.taskCookies.setCookie(newTask);
     this.setState({tasks});
   }
 
   handleRemoveTask = (id) => {
     const tasks = this.state.tasks.filter(task => task.id !== id);
-    this.setState({tasks})
+    this.setState({tasks});
   }
 
   render() {
