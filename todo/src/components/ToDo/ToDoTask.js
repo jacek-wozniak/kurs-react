@@ -1,11 +1,17 @@
 import React from 'react';
-import {parseDate} from "../../functions";
+import {parseDate, isExpired, classNames} from "../../functions";
 
 const ToDoTask = (props) => {
-  const {id, content, dueDate} = props.task;
+  const {id, content, priority, dueDate} = props.task;
+
+  let trClassNames = {
+    'tr--priority': priority,
+    'tr--expired': isExpired(dueDate)
+  }
+  trClassNames = classNames(trClassNames);
 
   return (
-    <tr>
+    <tr className={trClassNames}>
       <td>{id}</td>
       <td>{content}</td>
       <td>{parseDate(dueDate)}</td>

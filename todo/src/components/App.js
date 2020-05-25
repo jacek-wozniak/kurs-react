@@ -3,32 +3,34 @@ import Form from './Form'
 import ToDoList from './ToDo/ToDoList'
 import DoneList from './Done/DoneList'
 import {filterTasks} from "../functions";
-import CookieManagerClass from "../class/CookieManager";
+import StorageManager from "../class/StorageManager";
 
 class App extends Component {
   state = {
     tasks: []
   }
-  taskCookies = new CookieManagerClass('tasks');
+  storage = new StorageManager('tasks');
 
   componentDidMount() {
+
     this.setState({
-      tasks: this.taskCookies.content
+      tasks: this.storage.content
     })
   }
 
   handleAddTask = (newTask) => {
     const tasks = [...this.state.tasks],
-          maxId = Math.max.apply(null, tasks.map(item => item.id));
+          maxId = (tasks.length ? Math.max.apply(null, tasks.map(item => item.id)) : 0);
     newTask.id = maxId + 1;
     newTask.createDate = Date.now();
     tasks.push(newTask);
-    this.taskCookies.setCookie(newTask);
+    this.storage.setData(newTask);
     this.setState({tasks});
   }
 
   handleRemoveTask = (id) => {
     const tasks = this.state.tasks.filter(task => task.id !== id);
+    this.storage.removeData(id);
     this.setState({tasks});
   }
 

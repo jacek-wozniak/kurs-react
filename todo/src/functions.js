@@ -14,3 +14,15 @@ export function parseDate(time) {
   if(month<10) month = `0${month}`
   return `${day}.${month}.${year}`;
 }
+
+export function isExpired(dueDate) {
+  return dueDate && dueDate < Date.now();
+}
+
+export function classNames(arr) {
+  const classes = Object.entries(arr)
+    .filter(([key, value]) => value)
+    .map(([key, value]) => key)
+    .join(' ');
+  return classes || null;
+}
