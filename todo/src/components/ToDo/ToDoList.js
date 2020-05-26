@@ -18,6 +18,10 @@ class ToDoList extends Component {
         showName: 'Data',
       },
       {
+        propertyName: 'info',
+        showName: 'Informacje',
+      },
+      {
         propertyName: 'actions',
         showName: 'Akcje'
       }
