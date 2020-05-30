@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function filterTasks(arr, isValid){
   return arr.reduce(([done, todo], currentValue) => {
     return isValid(currentValue) ? [[...done, currentValue], todo] : [done, [...todo, currentValue]];
@@ -16,7 +18,7 @@ export function parseDate(time) {
 }
 
 export function isExpired(dueDate) {
-  return dueDate && dueDate < Date.now();
+  return !!dueDate && dueDate < Date.now();
 }
 
 export function classNames(arr) {
@@ -25,4 +27,20 @@ export function classNames(arr) {
     .map(([key, value]) => key)
     .join(' ');
   return classes || null;
+}
+
+export function showPriorityIcon() {
+  return <span className='icon icon--priority' title="Zadanie priorytetowe"/>;
+}
+
+export function showExpiredIcon() {
+  return <span className='icon icon--expired' title="Minęła zaplanowana data wykonania"/>;
+}
+
+export function showDoneIcon(clickAction = null) {
+  return <span className='icon icon--done' title="Wykonaj" onClick={clickAction}/>;
+}
+
+export function showRemoveIcon(clickAction = null) {
+  return <span className='icon icon--remove' title="Usuń" onClick={clickAction}/>;
 }

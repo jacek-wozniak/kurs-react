@@ -4,12 +4,12 @@ export default class StorageManager {
   constructor(name) {
     if(!instance || instance.name !== name) {
       this.name = name;
-      this.content = this.getData(name) || [];
+      this.content = this.getData() || [];
       instance = this;
     } else return instance;
   }
 
-  setData(task) {
+  addData(task) {
     try {
       this.content.push(task);
       localStorage.setItem(this.name, JSON.stringify(this.content));
@@ -18,16 +18,16 @@ export default class StorageManager {
     }
   }
 
-  removeData(id) {
+  setData(tasks) {
     try {
-      this.content = this.content.filter(item => item.id !== id);
+      this.content = tasks;
       localStorage.setItem(this.name, JSON.stringify(this.content));
     } catch(e) {
       console.error(`Something went wrong! \nError: ${e}` )
     }
   }
 
-  getData(name) {
+  getData() {
     return JSON.parse(localStorage.getItem(this.name));
   }
 }

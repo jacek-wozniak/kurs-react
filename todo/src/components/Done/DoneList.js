@@ -1,17 +1,38 @@
 import React from 'react';
 import DoneTask from './DoneTask';
+import ToDoTask from "../ToDo/ToDoTask";
 
 const DoneList = (props) => {
   const tasks = props.tasks.map(task => (
-    <DoneTask key={task.id} task={task}/>
+    <DoneTask
+      key={task.id}
+      task={task}
+      removeTask={props.removeTask}
+    />
   ))
   return (
-
-    <section className="section done">
-      <h2 className="section__header">Ostatnio zrobione zadania:</h2>
-      <ul className="table">
-        {tasks}
-      </ul>
+    <section className="section todo">
+      <h2
+        className="section__header"
+        onClick={() => props.toggleTab('done')}
+      >
+        Ostatnio zrobione zadania:
+      </h2>
+      <table
+        className={'table' + (!props.active ? ' hidden' : '' )}
+      >
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Zadanie</th>
+            <th>Data wykonania</th>
+            <th>Akcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tasks}
+        </tbody>
+      </table>
     </section>
   );
 }

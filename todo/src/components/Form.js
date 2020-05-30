@@ -60,10 +60,24 @@ class Form extends Component {
     const {content, dueDate, priority, contentError} = this.state;
     return (
       <section className="section">
-        <h2 className="section__header">Dodaj nowe zadanie</h2>
-        <form className="form">
+        <h2
+          className="section__header"
+          onClick={() => this.props.toggleTab('form')}
+        >
+          Dodaj nowe zadanie
+        </h2>
+        <form
+          className={'form' + (!this.props.active ? ' hidden' : '' )}
+        >
           <div className="form__textarea-container">
-            <textarea className="form__textarea" name="content" placeholder="Treść zadania" value={content} onFocus={this.handleInputFocus} onChange={this.handleInputChange}/>
+            <textarea
+              className="form__textarea"
+              name="content"
+              placeholder="Treść zadania"
+              value={content}
+              onFocus={this.handleInputFocus}
+              onChange={this.handleInputChange}
+            />
             {contentError && <span className="form__error">{contentError}</span>}
           </div>
           <div className="form__date-container">
@@ -75,11 +89,26 @@ class Form extends Component {
               dateFormat="dd-MM-yyyy"
             />
           </div>
-          <label htmlFor="priorityCheckbox" className="form__checkbox-label">
-            <input id="priorityCheckbox" className="form__checkbox" name="priority" type="checkbox" value={priority} onChange={this.handleInputChange}/>
+          <label
+            htmlFor="priorityCheckbox"
+            className="form__checkbox-label"
+          >
+            <input
+              id="priorityCheckbox"
+              className="form__checkbox"
+              name="priority"
+              type="checkbox"
+              checked={priority}
+              onChange={this.handleInputChange}
+            />
             Priorytet
           </label>
-          <input className="form__submit" type="submit" value="Dodaj" onClick={this.handleFormSubmit}/>
+          <input
+            className="form__submit"
+            type="submit"
+            value="Dodaj"
+            onClick={this.handleFormSubmit}
+          />
         </form>
       </section>
     );

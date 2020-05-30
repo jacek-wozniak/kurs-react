@@ -1,10 +1,18 @@
 import React from 'react';
+import {parseDate, showRemoveIcon} from "../../functions";
 
 const DoneTask = (props) => {
-  const {content} = props.task;
+  const {id, content, doneDate} = props.task;
 
   return (
-    <li>{content}</li>
+    <tr>
+      <td>{id}</td>
+      <td>{content}</td>
+      <td>{parseDate(doneDate)}</td>
+      <td>
+        {showRemoveIcon(() => props.removeTask(id))}
+      </td>
+    </tr>
   );
 }
 

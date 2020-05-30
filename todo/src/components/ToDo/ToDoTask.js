@@ -1,7 +1,5 @@
 import React from 'react';
-import {parseDate, isExpired, classNames} from "../../functions";
-import {ReactComponent as Exclamation} from "../../img/exclamation.svg";
-import {ReactComponent as Time} from "../../img/time.svg";
+import {parseDate, isExpired, showPriorityIcon, showExpiredIcon, showDoneIcon, showRemoveIcon} from "../../functions";
 
 const ToDoTask = (props) => {
   const {id, content, priority, dueDate} = props.task;
@@ -12,11 +10,12 @@ const ToDoTask = (props) => {
       <td>{content}</td>
       <td>{parseDate(dueDate)}</td>
       <td>
-        {priority && <Exclamation/>}
-        {isExpired(dueDate) && <Time/>}
+        {priority && showPriorityIcon()}
+        {isExpired(dueDate) && showExpiredIcon()}
       </td>
       <td>
-        <button onClick={props.removeTask.bind(this, id)}>Usuń</button>
+        {showDoneIcon(() => props.doTask(id))}
+        {showRemoveIcon(() => props.removeTask(id))}
       </td>
     </tr>
   );
